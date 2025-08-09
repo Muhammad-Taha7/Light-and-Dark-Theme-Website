@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taha Solutions - E-Commerce & IT Services</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="script.js" defer></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            'sans': ['Inter', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            'primary': '#2563eb',
+            'secondary': '#1e40af',
+            'accent': '#3b82f6',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Preloader Animations */
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    
+    @keyframes slideUp {
+      0% { transform: translateY(100%); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+    
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    
+    @keyframes scaleIn {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    
+    .loading-dots {
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    
+    .loading-dots:nth-child(2) {
+      animation-delay: 0.5s;
+    }
+    
+    .loading-dots:nth-child(3) {
+      animation-delay: 1s;
+    }
+    
+    .spinner {
+      animation: spin 2s linear infinite;
+    }
+    
+    .content-enter {
+      animation: slideUp 0.8s ease-out;
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.6s ease-out;
+    }
+    
+    .scale-in {
+      animation: scaleIn 0.5s ease-out;
+    }
+    
+    /* Gradient background animation */
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    .animated-gradient {
+      background: linear-gradient(-45deg, #2563eb, #3b82f6, #8b5cf6, #a855f7);
+      background-size: 400% 400%;
+      animation: gradientShift 4s ease infinite;
+    }
+  </style>
+</head>
+<body class="font-sans bg-white text-gray-900 transition-colors duration-300">
+  
+  <!-- Preloader -->
+  <div id="preloader" class="fixed inset-0 z-50 animated-gradient flex items-center justify-center">
+    <div class="text-center">
+      <!-- Logo/Brand -->
+      <div class="mb-8 scale-in">
+        <h1 class="text-4xl lg:text-5xl font-bold text-white mb-2">
+          Taha Solutions
+        </h1>
+        <p class="text-blue-100 text-lg">E-Commerce & IT Services</p>
+      </div>
+      
+      <!-- Spinner -->
+      <div class="relative mb-8">
+        <div class="w-16 h-16 border-4 border-white/30 border-t-white rounded-full spinner mx-auto"></div>
+        <div class="absolute inset-0 w-12 h-12 border-4 border-blue-200/50 border-t-blue-200 rounded-full spinner mx-auto mt-2 ml-2" style="animation-direction: reverse; animation-duration: 1.5s;"></div>
+      </div>
+      
+      <!-- Loading Text with Dots -->
+      <div class="fade-in">
+        <p class="text-white text-lg font-medium mb-4">Loading your experience</p>
+        <div class="flex justify-center space-x-2">
+          <div class="w-3 h-3 bg-white rounded-full loading-dots"></div>
+          <div class="w-3 h-3 bg-white rounded-full loading-dots"></div>
+          <div class="w-3 h-3 bg-white rounded-full loading-dots"></div>
+        </div>
+      </div>
+      
+      <!-- Progress Bar -->
+      <div class="w-64 h-2 bg-white/20 rounded-full mx-auto mt-8 overflow-hidden">
+        <div id="progress-bar" class="h-full bg-white rounded-full transition-all duration-300 ease-out" style="width: 0%"></div>
+      </div>
+      <p id="progress-text" class="text-white/80 text-sm mt-2">0%</p>
+    </div>
+  </div>
+
+  <!-- Main Content (Your existing website content) -->
+  <div id="main-content" class="hidden">
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200 transition-colors duration-300">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+          <!-- Logo -->
+          <div class="flex items-center">
+            <div class="flex-shrink-0">
+              <h1 class="text-2xl lg:text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                Taha Solutions
+              </h1>
+            </div>
+          </div>
+
+          <!-- Desktop Navigation -->
+          <div class="hidden md:block">
+            <div class="ml-10 flex items-baseline space-x-8">
+              <a href="#" class="nav-link text-gray-900 hover:text-blue-600 px-3 py-2 text-lg font-medium transition-colors duration-200 relative group">
+                Home
+                <span class="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-200"></span>
+              </a>
+              <a href="#" class="nav-link text-gray-900 hover:text-blue-600 px-3 py-2 text-lg font-medium transition-colors duration-200 relative group">
+                Services
+                <span class="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-200"></span>
+              </a>
+              <a href="#" class="nav-link text-gray-900 hover:text-blue-600 px-3 py-2 text-lg font-medium transition-colors duration-200 relative group">
+                About
+                <span class="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-200"></span>
+              </a>
+              <a href="#" class="nav-link text-gray-900 hover:text-blue-600 px-3 py-2 text-lg font-medium transition-colors duration-200 relative group">
+                Contact
+                <span class="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-200"></span>
+              </a>
+              <button id="darkbtn" class="ml-4 p-3 rounded-full border-2 border-gray-300 hover:border-blue-600 text-gray-700 hover:text-blue-600 hover:shadow-lg transition-all duration-200">
+                <i class="fas fa-sun text-lg"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <div class="md:hidden">
+            <button id="menu-btn" class="p-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-100 transition-colors duration-200">
+              <i class="fas fa-bars text-xl"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200 transition-colors duration-300">
+        <div class="px-2 pt-2 pb-3 space-y-1">
+          <a href="#" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-blue-600 hover:bg-gray-50 rounded-md transition-colors duration-200">Home</a>
+          <a href="#" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-blue-600 hover:bg-gray-50 rounded-md transition-colors duration-200">Services</a>
+          <a href="#" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-blue-600 hover:bg-gray-50 rounded-md transition-colors duration-200">About</a>
+          <a href="#" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-blue-600 hover:bg-gray-50 rounded-md transition-colors duration-200">Contact</a>
+          <div class="px-3 py-2">
+            <button id="mobile-darkbtn" class="p-3 rounded-full border-2 border-gray-300 hover:border-blue-600 text-gray-700 hover:text-blue-600 transition-all duration-200">
+              <i class="fas fa-sun text-lg"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative py-20 lg:py-32 overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          <!-- Left Content -->
+          <div class="text-center lg:text-left space-y-8 content-enter">
+            <div class="space-y-4">
+              <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
+                <span class="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent">
+                  Empowering Businesses
+                </span>
+                <br />
+                <span class="text-gray-900">Through Digital Innovation</span>
+              </h1>
+              <p class="text-xl lg:text-2xl text-gray-600 max-w-2xl">
+                We deliver cutting-edge e-commerce platforms and innovative IT solutions that help businesses grow, adapt, and thrive in the digital age.
+              </p>
+            </div>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              <button class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-xl text-lg font-semibold hover:shadow-2xl hover:shadow-blue-500/25 transform hover:-translate-y-1 transition-all duration-300">
+                Get Started
+                <i class="fas fa-arrow-right ml-2"></i>
+              </button>
+              <button class="border-2 border-gray-300 text-gray-700 px-8 py-4 rounded-xl text-lg font-semibold hover:border-blue-600 hover:text-blue-600 hover:shadow-lg transition-all duration-300">
+                Learn More
+              </button>
+            </div>
+
+            <!-- Stats -->
+            <div class="grid grid-cols-3 gap-8 pt-8 border-t border-gray-200">
+              <div class="text-center lg:text-left">
+                <div class="text-3xl lg:text-4xl font-bold text-blue-600">500+</div>
+                <div class="text-gray-600 font-medium">Projects Completed</div>
+              </div>
+              <div class="text-center lg:text-left">
+                <div class="text-3xl lg:text-4xl font-bold text-blue-600">50+</div>
+                <div class="text-gray-600 font-medium">Happy Clients</div>
+              </div>
+              <div class="text-center lg:text-left">
+                <div class="text-3xl lg:text-4xl font-bold text-blue-600">5+</div>
+                <div class="text-gray-600 font-medium">Years Experience</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Content -->
+          <div class="relative content-enter">
+            <div class="relative z-10">
+              <img 
+                class="w-full max-w-lg mx-auto rounded-2xl shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300" 
+                src="https://img.freepik.com/free-vector/think-outside-box-concept-illustration_114360-15734.jpg?semt=ais_hybrid&w=740" 
+                alt="Digital Innovation Illustration"
+              />
+            </div>
+            <!-- Background Decorations -->
+            <div class="absolute top-10 -right-4 w-72 h-72 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
+            <div class="absolute -bottom-8 -left-4 w-72 h-72 bg-gradient-to-r from-purple-400 to-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="py-20 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 content-enter">
+          <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+            Our <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Services</span>
+          </h2>
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+            Comprehensive digital solutions tailored to your business needs
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Service Card 1 -->
+          <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 border border-gray-100 content-enter">
+            <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-6">
+              <i class="fas fa-shopping-cart text-white text-2xl"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">E-Commerce Solutions</h3>
+            <p class="text-gray-600 mb-6">Custom online stores with seamless user experiences, secure payment gateways, and inventory management systems.</p>
+            <a href="#" class="text-blue-600 font-semibold hover:text-blue-700 transition-colors duration-200">
+              Learn More <i class="fas fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+
+          <!-- Service Card 2 -->
+          <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 border border-gray-100 content-enter">
+            <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-600 rounded-xl flex items-center justify-center mb-6">
+              <i class="fas fa-code text-white text-2xl"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">Web Development</h3>
+            <p class="text-gray-600 mb-6">Modern, responsive websites built with cutting-edge technologies for optimal performance and user engagement.</p>
+            <a href="#" class="text-blue-600 font-semibold hover:text-blue-700 transition-colors duration-200">
+              Learn More <i class="fas fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+
+          <!-- Service Card 3 -->
+          <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 border border-gray-100 content-enter">
+            <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-blue-600 rounded-xl flex items-center justify-center mb-6">
+              <i class="fas fa-cloud text-white text-2xl"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">IT Consulting</h3>
+            <p class="text-gray-600 mb-6">Strategic technology consulting to optimize your business operations and drive digital transformation.</p>
+            <a href="#" class="text-blue-600 font-semibold hover:text-blue-700 transition-colors duration-200">
+              Learn More <i class="fas fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-r from-blue-600 to-purple-700">
+      <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8 content-enter">
+        <h2 class="text-3xl lg:text-4xl font-bold text-white mb-6">
+          Ready to Transform Your Business?
+        </h2>
+        <p class="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+          Let's discuss how our solutions can help you achieve your digital goals and drive growth.
+        </p>
+        <button class="bg-white text-blue-600 px-8 py-4 rounded-xl text-lg font-semibold hover:shadow-2xl hover:shadow-white/25 transform hover:-translate-y-1 transition-all duration-300">
+          Start Your Project
+          <i class="fas fa-rocket ml-2"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div class="col-span-1 md:col-span-2">
+            <h3 class="text-2xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+              Taha Solutions
+            </h3>
+            <p class="text-gray-400 mb-6 max-w-md">
+              Your trusted partner for e-commerce and IT solutions. We help businesses succeed in the digital world.
+            </p>
+            <div class="flex space-x-4">
+              <a href="#" class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors duration-200">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="#" class="w-10 h-10 bg-blue-400 rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors duration-200">
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a href="#" class="w-10 h-10 bg-blue-700 rounded-full flex items-center justify-center hover:bg-blue-800 transition-colors duration-200">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+            </div>
+          </div>
+          
+          <div>
+            <h4 class="text-lg font-semibold mb-4">Services</h4>
+            <ul class="space-y-2 text-gray-400">
+              <li><a href="#" class="hover:text-white transition-colors duration-200">E-Commerce Development</a></li>
+              <li><a href="#" class="hover:text-white transition-colors duration-200">Web Applications</a></li>
+              <li><a href="#" class="hover:text-white transition-colors duration-200">IT Consulting</a></li>
+              <li><a href="#" class="hover:text-white transition-colors duration-200">Digital Strategy</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h4 class="text-lg font-semibold mb-4">Contact</h4>
+            <ul class="space-y-2 text-gray-400">
+              <li class="flex items-center">
+                <i class="fas fa-envelope mr-2"></i>
+                <span>info@tahasolutions.com</span>
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-phone mr-2"></i>
+                <span>+92 123 456 7890</span>
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-map-marker-alt mr-2"></i>
+                <span>Faisalabad, Punjab, PK</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="border-t border-gray-800 mt-12 pt-8 text-center">
+          <p class="text-gray-400">
+            © 2025 Taha Solutions. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+
+</body>
+</html>
